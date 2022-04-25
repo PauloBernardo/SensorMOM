@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="root" prefHeight="326.0" prefWidth="511.0" stylesheets="@aplication.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sensormom.SensorController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" layoutX="151.0" layoutY="14.0" prefHeight="35.0" prefWidth="204.0" styleClass="titleText" text="%hello.title" AnchorPane.leftAnchor="131.0" AnchorPane.rightAnchor="131.0" />
+   <AnchorPane layoutX="73.0" layoutY="52.0" prefHeight="67.0" prefWidth="366.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="52.0">
+      <children>
+         <ChoiceBox fx:id="choiceBox" layoutX="103.0" layoutY="43.0" prefWidth="150.0" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="103.0" />
+         <Label fx:id="welcomeText1" alignment="CENTER" layoutY="19.0" text="%hello.parameterLabel" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      </children>
+   </AnchorPane>
+   <Label fx:id="welcomeText111" alignment="CENTER" layoutX="214.0" layoutY="131.0" text="%hello.limits" AnchorPane.leftAnchor="193.0" AnchorPane.rightAnchor="193.0" />
+   <AnchorPane layoutX="80.0" layoutY="147.0" prefHeight="52.0" prefWidth="352.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="72.0">
+      <children>
+         <Label fx:id="welcomeText112" alignment="CENTER" layoutX="22.0" layoutY="8.0" text="%hello.minLabel" AnchorPane.leftAnchor="22.0" />
+         <Label fx:id="welcomeText11" alignment="CENTER" layoutX="230.0" layoutY="8.0" text="%hello.maxLabel" AnchorPane.rightAnchor="22.0" />
+         <TextField fx:id="minField" alignment="CENTER" layoutX="14.0" layoutY="28.0" prefHeight="24.0" prefWidth="127.0" AnchorPane.leftAnchor="14.0" />
+         <TextField fx:id="maxField" alignment="CENTER" layoutX="222.0" layoutY="28.0" prefHeight="24.0" prefWidth="127.0" AnchorPane.rightAnchor="14.0" />
+      </children>
+   </AnchorPane>
+   <AnchorPane layoutX="58.0" layoutY="205.0" prefHeight="52.0" prefWidth="396.0" AnchorPane.leftAnchor="37.0" AnchorPane.rightAnchor="37.0">
+      <children>
+         <Label fx:id="welcomeText1121" alignment="CENTER" layoutX="115.0" layoutY="6.0" text="%hello.actualValue" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="115.0" />
+         <TextField fx:id="valueField" alignment="CENTER" layoutX="115.0" layoutY="28.0" prefHeight="24.0" prefWidth="127.0" AnchorPane.leftAnchor="115.0" AnchorPane.rightAnchor="115.0" />
+      </children>
+   </AnchorPane>
+    <Button layoutX="201.0" layoutY="288.0" onAction="#onHelloButtonClick" text="%hello.button" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="181.0" AnchorPane.rightAnchor="181.0" />
+</AnchorPane>
