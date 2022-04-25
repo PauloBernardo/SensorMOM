@@ -1,0 +1,59 @@
+#root {
+    -fx-background-color: #e7eafd;
+}
+
+Label {
+    -fx-text-fill: #22243d;
+    -fx-font-weight: 600;
+}
+
+.titleText {
+    -fx-font-size: 28;
+    -fx-text-fill: #34364b;
+}
+
+#buttonMain {
+    -fx-background-color: #34364b;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.backContainer {
+    -fx-background-color: #34364b;
+    -fx-fill: #34364b;
+}
+
+Button {
+    -fx-background-color: #34364b;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#backContainer {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.gamesLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: cadetblue;
+}
+
+.gamesLabel:hover {
+    -fx-background-color: gray;
+    -fx-cursor: hand;
+}
+
+#nameText {
+    -fx-text-fill: #102c21;
+}
+
+#connectionStatus {
+    -fx-text-fill: #102c21;
+}
+
+#historicLabel {
+    -fx-text-fill: #194431;
+    -fx-underline: true;
+}
+
