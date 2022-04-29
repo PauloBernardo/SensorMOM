@@ -3,10 +3,12 @@ package com.example.sensormom;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import javax.jms.InvalidClientIDException;
 import javax.jms.JMSException;
 import java.io.IOException;
 import java.util.Locale;
@@ -21,6 +23,8 @@ public class SensorController extends ResizableView {
     public TextField minField;
     @FXML
     public TextField valueField;
+    @FXML
+    public TextField idField;
     @FXML
     private Label welcomeText;
 
@@ -49,27 +53,36 @@ public class SensorController extends ResizableView {
 
     @FXML
     protected void onHelloButtonClick(ActionEvent event) throws IOException, JMSException {
-        System.out.println((String) choiceBox.getValue());
-        System.out.println(maxField.getText());
-        System.out.println(minField.getText());
-        System.out.println(valueField.getText());
         try {
+            if(idField.getText() == null || idField.getText().equals("")) {
+                throw new Exception("ID is null!");
+            }
             if (choiceBox.getValue() == null) {
-                System.out.println("Parameter invalid!");
-                return;
+                throw new Exception("Choice is null!");
             }
             Double.parseDouble(maxField.getText());
             Double.parseDouble(minField.getText());
             Double.parseDouble(valueField.getText());
         } catch (Exception e) {
-            System.out.println("Number invalid!");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(bundle.getString("hello.startTitleError"));
+            alert.getDialogPane().setContent( new Label(bundle.getString("hello.startTextError")));
+            alert.show();
             return;
         }
-        Context context = Context.getInstance();
-        context.setSensorParameter((String) choiceBox.getValue());
-        context.setActualLimit(Double.parseDouble(valueField.getText()));
-        context.setMinLimit(Double.parseDouble(minField.getText()));
-        context.setMaxLimit(Double.parseDouble(maxField.getText()));
-        this.switchBetweenScreen(((Node) event.getSource()).getScene(), "sensor-view.fxml");
+        try {
+            Context.clientID = idField.getText();
+            Context context = Context.getInstance();
+            context.setSensorParameter((String) choiceBox.getValue());
+            context.setActualLimit(Double.parseDouble(valueField.getText()));
+            context.setMinLimit(Double.parseDouble(minField.getText()));
+            context.setMaxLimit(Double.parseDouble(maxField.getText()));
+            this.switchBetweenScreen(((Node) event.getSource()).getScene(), "sensor-view.fxml");
+        } catch (InvalidClientIDException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(bundle.getString("hello.sensorIDTitleError"));
+            alert.getDialogPane().setContent( new Label(bundle.getString("hello.sensorIDTextError")));
+            alert.show();
+        }
     }
 }

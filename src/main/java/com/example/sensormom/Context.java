@@ -8,26 +8,30 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class Context {
     private static Context instance = null;
+    static String clientID;
     private Double maxLimit;
     private Double minLimit;
     private Double actualLimit;
     private String sensorParameter;
     private final ArrayList<ResizableView> listeners;
-    private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
+    static String url;
     private final Session session;
     private final Connection connection;
     private MessageProducer publisher;
+    private MessageProducer publisherUnic;
 
     private Context() throws JMSException {
         super();
         listeners = new ArrayList<>();
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+        connectionFactory.setClientID(clientID);
+        connectionFactory.setConnectionIDPrefix(clientID);
         connection = connectionFactory.createConnection();
         connection.start();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
     }
 
-    public static Context getInstance() throws IOException, JMSException {
+    public static Context getInstance() throws JMSException {
         if (instance == null) {
             try {
                 instance = new Context();
@@ -80,30 +84,31 @@ public class Context {
         if (publisher != null) {
             publisher.close();
         }
-        /*
-         * Criando Topic
-         */
+        // Crate Topic
         Destination dest = session.createTopic(sensorParameter);
-
-        /*
-         * Criando Produtor
-         */
         publisher = session.createProducer(dest);
+        // Sensor 'Private' Topic
+        Destination destUnic = session.createTopic(sensorParameter + " - " + clientID);
+        publisherUnic = session.createProducer(destUnic);
+
         this.sensorParameter = sensorParameter;
     }
 
     public void sendMensage(String message) throws JMSException {
         TextMessage textMessage = session.createTextMessage();
         textMessage.setText(message);
-        /*
-         * Publicando Mensagem
-         */
         publisher.send(textMessage);
+        publisherUnic.send(textMessage);
     }
 
     public void closeConnection() throws JMSException {
+        publisherUnic.close();
         publisher.close();
         session.close();
         connection.close();
+    }
+
+    public ActiveMQConnection getConnection() {
+        return (ActiveMQConnection) connection;
     }
 }
